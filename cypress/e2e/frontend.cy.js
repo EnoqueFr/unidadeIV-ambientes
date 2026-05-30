@@ -9,16 +9,12 @@ const FRONTEND_URL = Cypress.env('FRONTEND_URL') || 'http://localhost:5500';
 describe('Frontend — TaskFlow', () => {
 
   beforeEach(() => {
-    // Reset backend state before each test
     cy.request('POST', 'http://localhost:3001/api/tasks/reset');
     cy.visit(FRONTEND_URL);
-    // Wait for tasks to load
     cy.get('[data-testid="loading"]', { timeout: 8000 }).should('not.be.visible');
+    cy.get('[data-testid="task-list"]').children().should('have.length.greaterThan', 0);
   });
 
-  // ─────────────────────────────────────────────────
-  // LAYOUT & INITIAL STATE
-  // ─────────────────────────────────────────────────
   describe('Layout e carregamento inicial', () => {
     it('deve exibir o título da aplicação', () => {
       cy.contains('TaskFlow').should('be.visible');
@@ -48,9 +44,6 @@ describe('Frontend — TaskFlow', () => {
     });
   });
 
-  // ─────────────────────────────────────────────────
-  // TASK LISTING
-  // ─────────────────────────────────────────────────
   describe('Listagem de tarefas', () => {
     it('deve listar as tarefas vindas do backend', () => {
       cy.get('[data-testid="task-list"]').children().should('have.length.greaterThan', 0);
@@ -74,9 +67,6 @@ describe('Frontend — TaskFlow', () => {
     });
   });
 
-  // ─────────────────────────────────────────────────
-  // ADD TASK
-  // ─────────────────────────────────────────────────
   describe('Adicionar tarefa', () => {
     it('deve adicionar uma nova tarefa ao digitar e clicar em Adicionar', () => {
       cy.get('[data-testid="task-input"]').type('Tarefa criada pelo Cypress');
@@ -112,17 +102,14 @@ describe('Frontend — TaskFlow', () => {
     });
   });
 
-  // ─────────────────────────────────────────────────
-  // DELETE TASK
-  // ─────────────────────────────────────────────────
   describe('Excluir tarefa', () => {
     it('deve remover a tarefa ao clicar em excluir', () => {
-      cy.get('[data-testid="task-list"]').children().first().as('firstTask');
-      cy.get('@firstTask').find('.task-title').invoke('text').as('taskTitle');
-      cy.get('@firstTask').find('.btn-delete').click({ force: true });
-      cy.get('@taskTitle').then(title => {
-        cy.get('[data-testid="task-list"]').should('not.contain', title.trim());
-      });
+      cy.get('[data-testid="task-list"]').children().first()
+        .find('.task-title').invoke('text').then(title => {
+          cy.get('[data-testid="task-list"]').children().first()
+            .find('.btn-delete').click({ force: true });
+          cy.get('[data-testid="task-list"]').should('not.contain', title.trim());
+        });
     });
 
     it('deve decrementar o total nas estatísticas após excluir', () => {
@@ -133,14 +120,12 @@ describe('Frontend — TaskFlow', () => {
     });
   });
 
-  // ─────────────────────────────────────────────────
-  // COMPLETE TASK
-  // ─────────────────────────────────────────────────
   describe('Concluir / desmarcar tarefa', () => {
     it('deve marcar uma tarefa pendente como concluída', () => {
-      cy.get('.task-item:not(.completed)').first().as('pendingTask');
-      cy.get('@pendingTask').find('.task-check').click();
-      cy.get('@pendingTask').should('have.class', 'completed');
+      cy.get('.task-item:not(.completed)').first().invoke('attr', 'data-id').then(id => {
+        cy.get('.task-item:not(.completed)').first().find('.task-check').click();
+        cy.get(`[data-testid="task-item-${id}"]`).should('have.class', 'completed');
+      });
     });
 
     it('deve incrementar o contador de concluídas', () => {
@@ -151,9 +136,6 @@ describe('Frontend — TaskFlow', () => {
     });
   });
 
-  // ─────────────────────────────────────────────────
-  // EDIT TASK
-  // ─────────────────────────────────────────────────
   describe('Editar tarefa', () => {
     it('deve abrir campo de edição ao clicar em editar', () => {
       cy.get('.btn-edit').first().click({ force: true });
@@ -168,9 +150,6 @@ describe('Frontend — TaskFlow', () => {
     });
   });
 
-  // ─────────────────────────────────────────────────
-  // FILTERS
-  // ─────────────────────────────────────────────────
   describe('Filtros de tarefas', () => {
     it('deve mostrar apenas tarefas pendentes ao clicar em Pendentes', () => {
       cy.get('[data-testid="filter-pending"]').click();
@@ -201,20 +180,17 @@ describe('Frontend — TaskFlow', () => {
     });
   });
 
-  // ─────────────────────────────────────────────────
-  // EMPTY STATE
-  // ─────────────────────────────────────────────────
   describe('Estado vazio', () => {
     it('deve exibir estado vazio quando não há tarefas no filtro', () => {
-      // Filter by done, then delete all — or just check a filter with no results
-      // Force an empty filter scenario with 0 completed tasks in 'done' filter
-      // We'll add a fresh task (pending) and check the 'done' filter
-      cy.request('POST', 'http://localhost:3001/api/tasks/reset');
-      cy.request('POST', 'http://localhost:3001/api/tasks', { title: 'Única tarefa pendente' });
-      cy.reload();
-      cy.get('[data-testid="loading"]').should('not.be.visible');
-      cy.get('[data-testid="filter-done"]').click();
-      cy.get('[data-testid="empty-state"]').should('be.visible');
+      cy.request('POST', 'http://localhost:3001/api/tasks/reset').then(() => {
+        return cy.request('PUT', 'http://localhost:3001/api/tasks/3', { completed: false });
+      }).then(() => {
+        cy.visit(FRONTEND_URL);
+        cy.get('[data-testid="loading"]').should('not.be.visible');
+        cy.get('[data-testid="task-list"]').children().should('have.length.greaterThan', 0);
+        cy.get('[data-testid="filter-done"]').click();
+        cy.get('[data-testid="empty-state"]').should('be.visible');
+      });
     });
   });
 });
