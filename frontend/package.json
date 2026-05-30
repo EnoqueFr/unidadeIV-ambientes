@@ -1,0 +1,9 @@
+{
+  "name": "taskflow-frontend",
+  "version": "1.0.0",
+  "description": "Frontend HTML/CSS/JS para o gerenciador de tarefas TaskFlow",
+  "scripts": {
+    "test": "cd .. && npx cypress run --spec 'cypress/e2e/frontend.cy.js'",
+    "test:open": "cd .. && npx cypress open"
+  }
+}

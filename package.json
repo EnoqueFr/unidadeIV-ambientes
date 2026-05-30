@@ -1,0 +1,17 @@
+{
+  "name": "taskflow",
+  "version": "1.0.0",
+  "description": "Gerenciador de tarefas — Trabalho Unidade IV",
+  "scripts": {
+    "test:backend": "npx cypress run --spec 'cypress/e2e/backend.cy.js'",
+    "test:frontend": "npx cypress run --spec 'cypress/e2e/frontend.cy.js'",
+    "test:all": "npm run test:backend && npm run test:frontend",
+    "test:open": "npx cypress open",
+    "start:backend": "cd backend && node index.js",
+    "start:frontend": "npx serve frontend -l 5500"
+  },
+  "devDependencies": {
+    "cypress": "^13.6.0",
+    "serve": "^14.2.1"
+  }
+}

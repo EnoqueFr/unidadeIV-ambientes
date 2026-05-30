@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TaskFlow — Gerenciador de Tarefas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="noise"></div>
+
+  <header>
+    <div class="logo">
+      <span class="logo-icon">✦</span>
+      <span class="logo-text">TaskFlow</span>
+    </div>
+    <div id="api-status" class="api-badge" data-testid="api-status">
+      <span class="dot"></span>
+      <span class="label">Conectando...</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Suas tarefas,<br/><em>organizadas.</em></h1>
+      <p class="subtitle">Gerencie tudo em um só lugar com simplicidade e eficiência.</p>
+    </section>
+
+    <section class="stats-bar" data-testid="stats-bar">
+      <div class="stat">
+        <span class="stat-num" id="stat-total" data-testid="stat-total">0</span>
+        <span class="stat-label">Total</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <span class="stat-num" id="stat-pending" data-testid="stat-pending">0</span>
+        <span class="stat-label">Pendentes</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <span class="stat-num" id="stat-done" data-testid="stat-done">0</span>
+        <span class="stat-label">Concluídas</span>
+      </div>
+    </section>
+
+    <section class="add-task-section">
+      <form id="task-form" data-testid="task-form">
+        <input
+          type="text"
+          id="task-input"
+          data-testid="task-input"
+          placeholder="Digite uma nova tarefa..."
+          autocomplete="off"
+          maxlength="120"
+        />
+        <button type="submit" data-testid="task-submit">
+          <span>+ Adicionar</span>
+        </button>
+      </form>
+      <div id="form-error" class="form-error" data-testid="form-error"></div>
+    </section>
+
+    <section class="filters" data-testid="filters">
+      <button class="filter-btn active" data-filter="all" data-testid="filter-all">Todas</button>
+      <button class="filter-btn" data-filter="pending" data-testid="filter-pending">Pendentes</button>
+      <button class="filter-btn" data-filter="done" data-testid="filter-done">Concluídas</button>
+    </section>
+
+    <section class="task-list-section">
+      <div id="loading" class="loading-state" data-testid="loading">
+        <div class="spinner"></div>
+        <span>Carregando tarefas...</span>
+      </div>
+      <ul id="task-list" data-testid="task-list"></ul>
+      <div id="empty-state" class="empty-state hidden" data-testid="empty-state">
+        <span class="empty-icon">◈</span>
+        <p>Nenhuma tarefa encontrada.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>TaskFlow — Unidade IV &nbsp;·&nbsp; Trabalho Acadêmico</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
