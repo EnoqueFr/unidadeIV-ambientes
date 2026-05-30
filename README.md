@@ -131,7 +131,7 @@ Dois workflows são disparados a cada **push** em qualquer branch:
 
 ## 👨‍🎓 Informações Acadêmicas
 
-- **Disciplina**: Engenharia de Software  
+- **Disciplina**: Ambientes e Desenv. de Software 
 - **Unidade**: IV  
-- **Valor**: 4,0 pontos  
-- **Professor**: regis.simao@unifor.br
+- **Pontuação Máxima**: 4,0 pontos  
+- **Professor**: Regis Simão (regis.simao@unifor.br)
