@@ -6,6 +6,7 @@
 
 ## 📁 Estrutura do Projeto
 
+```text
 unidadeIV-ambientes/
 ├── frontend/               # HTML, CSS e JavaScript puro
 │   ├── index.html
