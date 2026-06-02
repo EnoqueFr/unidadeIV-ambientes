@@ -6,8 +6,8 @@
 
 ## 📁 Estrutura do Projeto
 
-```
-taskflow/
+```text
+unidadeIV-ambientes/
 ├── frontend/               # HTML, CSS e JavaScript puro
 │   ├── index.html
 │   ├── style.css
@@ -28,9 +28,9 @@ taskflow/
 ├── cypress.config.js
 ├── package.json
 └── README.md
-```
 
 ---
+```
 
 ## 🚀 Como rodar localmente
 
@@ -50,12 +50,16 @@ cd backend && npm install && cd ..
 
 ### 2. Iniciar o backend
 
+> Abra um **Terminal 1** e deixe rodando:
+
 ```bash
 npm run start:backend
 # Servidor rodando em http://localhost:3001
 ```
 
 ### 3. Iniciar o frontend
+
+> Abra um **Terminal 2** e deixe rodando:
 
 ```bash
 npm run start:frontend
@@ -70,16 +74,26 @@ Acesse **http://localhost:5500** no seu navegador.
 
 ## 🧪 Executar os Testes
 
-### Todos os testes (modo headless)
+> ⚠️ **Antes de rodar os testes:**
+> - O **backend** deve estar rodando no Terminal 1 (`http://localhost:3001`)
+> - O **frontend** deve estar rodando no Terminal 2 (`http://localhost:5500`)
+> - Abra um **Terminal 3** para executar os comandos abaixo
+
+### Testes do backend (API)
 
 ```bash
-# Testes do backend
 npm run test:backend
+```
 
-# Testes do frontend
+### Testes do frontend (interface)
+
+```bash
 npm run test:frontend
+```
 
-# Todos juntos
+### Todos os testes juntos
+
+```bash
 npm run test:all
 ```
 
@@ -88,9 +102,6 @@ npm run test:all
 ```bash
 npm run test:open
 ```
-
-> ⚠️ **Para rodar os testes, o backend deve estar iniciado em `localhost:3001`**  
-> Para os testes do frontend, o frontend também deve estar servido em `localhost:5500`
 
 ---
 
@@ -131,7 +142,7 @@ Dois workflows são disparados a cada **push** em qualquer branch:
 
 ## 👨‍🎓 Informações Acadêmicas
 
-- **Disciplina**: Ambientes e Desenv. de Software 
-- **Unidade**: IV  
-- **Pontuação Máxima**: 4,0 pontos  
+- **Disciplina**: Ambientes e Desenv. de Software
+- **Unidade**: IV
+- **Pontuação Máxima**: 4,0 pontos
 - **Professor**: Regis Simão (regis.simao@unifor.br)
