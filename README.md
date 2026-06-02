@@ -40,12 +40,21 @@ unidadeIV-ambientes/
 
 ### 1. Instalar dependências
 
+Execute os comandos abaixo a partir da **raiz** do projeto:
+
 ```bash
-# Raiz (Cypress + serve)
+# 1. Instalar dependências globais/Cypress
 npm install
 
-# Backend
-cd backend && npm install && cd ..
+# 2. Instalar dependências do Backend
+cd backend
+npm install
+cd ..
+
+# 3. Instalar dependências do Frontend
+cd frontend
+npm install
+cd ..
 ```
 
 ### 2. Iniciar o backend
@@ -53,7 +62,8 @@ cd backend && npm install && cd ..
 > Abra um **Terminal 1** e deixe rodando:
 
 ```bash
-npm run start:backend
+cd backend
+npm run start
 # Servidor rodando em http://localhost:3001
 ```
 
@@ -62,7 +72,8 @@ npm run start:backend
 > Abra um **Terminal 2** e deixe rodando:
 
 ```bash
-npm run start:frontend
+cd frontend
+npm run start
 # Frontend disponível em http://localhost:5500
 ```
 
@@ -75,32 +86,31 @@ Acesse **http://localhost:5500** no seu navegador.
 ## 🧪 Executar os Testes
 
 > ⚠️ **Antes de rodar os testes:**
-> - O **backend** deve estar rodando no Terminal 1 (`http://localhost:3001`)
-> - O **frontend** deve estar rodando no Terminal 2 (`http://localhost:5500`)
-> - Abra um **Terminal 3** para executar os comandos abaixo
+> - O **backend** deve estar rodando no Terminal 1
+> - O **frontend** deve estar rodando no Terminal 2
+> - Abra um **Terminal 3** (na raiz do projeto) para executar os comandos abaixo:
 
 ### Testes do backend (API)
 
 ```bash
-npm run test:backend
+npx cypress run --spec "cypress/e2e/backend.cy.js"
 ```
-
 ### Testes do frontend (interface)
 
 ```bash
-npm run test:frontend
+npx cypress run --spec "cypress/e2e/frontend.cy.js"
 ```
 
 ### Todos os testes juntos
 
 ```bash
-npm run test:all
+npx cypress run
 ```
 
 ### Interface gráfica do Cypress
 
 ```bash
-npm run test:open
+npx cypress open
 ```
 
 ---
