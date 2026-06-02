@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "Frontend HTML/CSS/JS para o gerenciador de tarefas TaskFlow",
   "scripts": {
+    "start": "serve -l 5500",
     "test": "cd .. && npx cypress run --spec 'cypress/e2e/frontend.cy.js'",
     "test:open": "cd .. && npx cypress open"
+  },
+  "dependencies": {
+    "serve": "^14.2.6"
   }
 }
